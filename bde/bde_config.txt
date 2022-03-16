@@ -1,0 +1,14 @@
+Prerequeset:
+CMAKE 3.12+
+Python
+$ sudo dnf --enablerepo=powertools install ninja-build
+
+How to build and generate makefile:
+$ git clone https://github.com/bloomberg/bde-tools.git
+$ export PATH=$PWD/bde-tools/bin:$PATH
+$ git clone https://github.com/bloomberg/bde.git
+$ cd bde
+$ export BDE_CMAKE_BUILD_DIR=$PWD/_build
+$ find . -name build.make -exec sed -i 's/\/opt\/rh\/gcc-toolset-10\/root\/usr\/bin\/c/c/g' {} \;
+$ find . -name build.make -exec sed -i 's/\/opt\/rh\/gcc-toolset-10\/root\/usr\/bin\/c++/c++/g' {} \;
+$ cmake_build.py configure -u dbg_exc_mt_64_cpp14 -G "Unix Makefiles"
